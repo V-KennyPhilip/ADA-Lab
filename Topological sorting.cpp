@@ -1,44 +1,63 @@
-#include<stdio.h>
-void dfs(int);
-int a[10][10],n,exp[10],vis[10],j=0;
+#include <stdio.h>
+
+void DFS(int);
+
+int Q[10], F = 0, R = 0;
+int A[10][10], vis[10], EXP[10], J = 0;
+int n, m;
+
 int main()
 {
-    int m,u,v;
-    printf("Enter the number of vertices:");
-    scanf("%d",&n);
-
-    printf("Enter number of edges edges\n");
-    scanf("%d",&m);
-
-    printf("Enter all edges\n");
-    for(int i=1;i<=m;i++)
+    int v, u;
+    printf("Enter the number of vertices\n");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++)
     {
-        scanf("%d%d",&u,&v);
-        a[u][v]=1;
-    }
-   for(int i=1;i<=n;i++)
-   {
-        if(vis[i]==0)
+        for (int j = 1; j <= n; j++)
         {
-            dfs(i);
+            A[i][j] = 0;
         }
-   }
-   printf("Topological order\n");
-   for(int i=n-1;i>=0;i--)
-   {
-         printf("%d\t",exp[i]);
-   }
-   return 0;
+    }
+    printf("Enter the number of edges\n");
+    scanf("%d", &m);
+    printf("Enter the edges\n");
+    for (int i = 1; i <= m; i++)
+    {
+        scanf("%d %d", &u, &v);
+        A[u][v] = 1;
+    }
+
+    for (int i = 1; i <= n; i++)
+    {
+        vis[i] = 0;
+    }
+
+    for (int i = 1; i <= n; i++)
+    {
+        if (vis[i] == 0)
+        {
+            DFS(i);
+        }
+    }
+
+    printf("Topological traversal\n");
+    for (int i = n - 1; i >= 0; i--)
+    {
+        printf("%d ", EXP[i]);
+    }
 }
 
-void dfs(int v)
+void DFS(int v)
 {
-    for(int i=1;i<=n;i++)
+    int i;
+    vis[v] = 1;
+
+    for (int i = 1; i <= n; i++)
     {
-        if(a[v][i]==1 && vis[i]==0)
+        if (A[v][i] == 1 && vis[i] == 0)
         {
-            dfs(i);
+            DFS(i);
         }
     }
-    exp[j++]=v;
+    EXP[J++] = v;
 }
